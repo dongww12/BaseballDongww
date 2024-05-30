@@ -1,11 +1,24 @@
 #include "pch.h"
 #include "../Baseball/Baseball.cpp"
+#include <string>
 
-TEST(TestCaseName, TestName) {
-  EXPECT_EQ(1, 1);
-  EXPECT_EQ(1, 1);
-  EXPECT_EQ(1, 1);
-  EXPECT_EQ(2, 2);
-  EXPECT_EQ(2, 2);
-  EXPECT_EQ(2, 2);
+using namespace std;
+
+class BaseballTestFixture : public testing::Test {
+public:
+	void assertIllegalArgument(string guessNumber) {
+		Baseball game;
+		try {
+			game.guess(guessNumber);
+			FAIL();
+		}
+		catch (exception& e) {
+			// PASS
+		}
+	}
+};
+
+TEST_F(BaseballTestFixture, ThrowExceptionInvalidArg) {
+	assertIllegalArgument("12");
+	assertIllegalArgument("12s");
 }
